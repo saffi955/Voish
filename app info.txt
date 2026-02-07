@@ -1,0 +1,108 @@
+You are an elite Flutter architect tasked with building the complete GUI + logic blueprint for “Voish” — the voice-first super-app for Pakistan (WeChat of Pakistan). Target users have 6GB average RAM phones (urban 18–34, ride-hailing/food delivery/online payments), with graceful fallback for 4GB devices. The app must stay under 20 MB APK, work fully offline, and feel instant.
+
+Core concept:
+- One giant red microphone button dominates the home screen.
+- User presses and speaks in Urdu or Roman Urdu.
+- App instantly understands intent and opens the correct mini-app or performs the action.
+- Mini-apps are lazy-loaded modules (deferred loading) to keep the base APK tiny.
+- Hybrid parsing: First try fast keyword/regex (works on 4GB), then optional on-device LLM (Qwen3-7B or Gemini Nano) only for complex/incomplete sentences on 6GB+ devices.
+
+Tech stack:
+- Flutter 3.24+ (single codebase Android + iOS)
+- Riverpod 2.x for state management (lightweight, no Provider bloat)
+- Hive for local encrypted offline database (messages, fake wallet balance, ride history)
+- speech_to_text + vosk or whisper.cpp for offline Urdu STT
+- easy_localization (Urdu + English + Roman Urdu)
+- flutter_image_compress, flutter_lints, deferred loading
+- Dark theme only, Pakistani aesthetic (deep charcoal + red accent)
+
+Folder structure (clean architecture + feature-first):
+lib/
+├── core/                 # shared (theme, constants, extensions)
+├── features/             # each mini-app is a separate deferred-loaded feature
+│   ├── home/             # red mic screen + voice parser
+│   ├── chat/             # E2EE messaging
+│   ├── wallet/           # fake balance + send money + bill pay
+│   ├── rides/            # map + driver matching (fake for MVP)
+│   ├── food/             # restaurant list + order (fake)
+│   ├── offers/           # lucky draw screen
+│   └── settings/         # language, premium, about
+├── services/             # voice parser, LLM wrapper, encryption
+├── data/                 # Hive boxes, local models
+├── l10n/                 # Urdu + English ARB files
+└── main.dart
+
+Detailed screen flow:
+1. Splash → Onboarding (3 slides, Urdu/English toggle) → Home
+2. Home screen: 80 % giant red mic (like your mockup), bottom navigation bar (Chat | Wallet | Rides | Food | Offers), top app bar with profile pic + PKR balance.
+3. Press & hold mic → ripple animation + listening → release → parsing → either:
+   - Instant action (e.g., “500 bhej Ali” → opens wallet pre-filled)
+   - Confirmation bubble (“Ali ko 500 bhejna hai?”) with Yes/No
+   - Fallback voice reply if unclear
+4. Each mini-app is a full-screen route with back button returning to home.
+
+Voice parsing logic (hybrid):
+- First layer: Fast regex/keyword matcher (50 lines Dart) for common patterns:
+  - “bhej”, “send”, “transfer” + number + name
+  - “ride”, “car”, “jao” + location
+  - “khana”, “biryani”, “order”
+- If confidence <80 % or missing info → on 6GB+ devices call on-device LLM (Qwen3-7B quantized or Gemini Nano) via ONNX/TFLite to extract intent + entities + ask clarification.
+- On 4GB devices → always keyword + simple clarification questions.
+
+Offline-first requirements:
+- All screens work without internet
+- Fake data pre-seeded in Hive
+- Queue actions (e.g., send money) → show “will send when online”
+- Lucky draw runs fully offline
+
+Security & privacy:
+- E2EE for chat (encrypt package)
+- No voice recordings saved
+- Biometric lock option for wallet
+
+Performance targets:
+- <20 MB APK
+- <2 sec cold start
+- <16 ms frame time on 4GB phone
+- LLM only loaded when user opts in (“Enable Smart Voice?”)
+
+Output exactly this:
+1. Complete folder/file tree with purpose of every file
+2. Detailed screen-by-screen UI description (colors, widgets, animations)
+3. Riverpod providers structure
+4. Voice parsing service class (hybrid keyword + LLM stub)
+5. Deferred loading setup for each feature
+6. Hive box definitions
+7. main.dart skeleton
+8. pubspec.yaml with exact package versions
+9. Bonus: Ready-to-use Urdu localization strings for common phrases
+
+Generate everything in perfect, runnable Flutter/Dart code structure that I can copy-paste and run immediately. Do not add any cloud backend, Firebase, or payments SDK yet — pure offline MVP.
+
+
+
+
+
+
+
+EXTRA DIARY STUFF
+
+- Global Features
+  => Using Google, Apple, number/phone as well as custom form filling
+
+- Contacts
+  => Uniqu formate of contacts for the app that also can be filtered using phone number as well as gmail or apple id (unique formate will be voish id eg. @ali_345, 2439083)
+
+- Profile/ User Management
+  => Profile will have his info i.e. KYC verified, phone verified, email verified, face id, finger print, pin, password, seed key, cnic, dob, home address or location enabled. some of this inof will be  complimentry and some will be optional to verify.
+  => this profile will also have profile pic and the status/stories will be global or in the other words it will be operated out of any mini app.
+
+- Notification/Update
+  => This page will be like a tipical notification section but a little advanced with AI filtration of important notificaitons and regular notifications. this sacion is always been a dark room of almost al the apps because of so much mess it has.
+
+- Activities/Tasks/Schedular
+  => This feature will contain all the running task, as well as those tasks which are pending or scheduled to do..
+  => User can add schedules or tasks via AI assistant or GUI ( A plus button at the top right corner).
+  => User will be able to cancel/stop, make tasks pending as well.
+  => User will handle all those  tasks of  the business if he has shop or educational institute e.g. order dispatching, tickets,rides, food, shopping, etc.
+  => User will also use this as a cart for food ordering shopping, ticket etc..

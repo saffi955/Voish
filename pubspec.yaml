@@ -1,0 +1,41 @@
+name: voish_app
+description: "Voish - The Voice-First Super-App"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.4.9
+  google_fonts: ^6.1.0
+  flutter_svg: ^2.0.9
+  feather_icons: ^1.2.0
+  animate_do: ^3.3.2
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  encrypt: ^5.0.3
+  geolocator: ^10.1.0
+  flutter_local_notifications: ^17.2.3
+  firebase_core: ^4.2.1
+  firebase_auth: ^6.1.2
+  cloud_firestore: ^6.1.0
+  speech_to_text: ^7.3.0
+  google_sign_in: ^6.2.1
+  # For RTL/Localization if needed beyond intl
+  # easy_localization: ... (optional, sticking to core for now)
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "330923245528",
+    "project_id": "voish-e0361",
+    "storage_bucket": "voish-e0361.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330923245528:android:554445b1e637db22d93cad",
+        "android_client_info": {
+          "package_name": "Vo1sh.o80_e42"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "330923245528-feaqtpu0homroo73dim3o5oembio09te.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "Vo1sh.o80_e42",
+            "certificate_hash": "4050cc3d67910fe6b3bb739ca3cc48c32052b838"
+          }
+        },
+        {
+          "client_id": "330923245528-87b73kdksnv2ddgd8rojg0gq5461go3q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeUmq9Uhl9_oVPKrTjQfbGJO-hjMGw35A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "330923245528-87b73kdksnv2ddgd8rojg0gq5461go3q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
